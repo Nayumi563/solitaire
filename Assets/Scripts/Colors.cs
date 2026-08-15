@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Colors : MonoBehaviour
 {
-    [SerializeField] public CardColorConfig[] ColorConfig;
+    public CardColorConfig[] ColorConfig;
+
     public CardColorConfig GetColorConfig(CardConfig config)
     {
         foreach (CardColorConfig colorConfig in ColorConfig)

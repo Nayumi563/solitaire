@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CardConfig
@@ -15,11 +16,18 @@ public class CardManager : MonoBehaviour
     [SerializeField] private string[] _cardNumbers;
     [SerializeField] private Sprite[] _backPaterns;
     [SerializeField] private CardElement _cardPrefab;
-    [SerializeField] private Transform _cardContainer;
+    [SerializeField] private Transform _pileContainer;
+    [SerializeField] private Transform[] _columnContainers;
+    private List<GameObject> _deck = new List<GameObject>();
 
     public void Awake()
     {
         _colors = gameObject.GetComponent<Colors>();
+    }
+
+    private void Start()
+    {
+        Deal();
     }
     public void DeackCreation()
     {
@@ -30,23 +38,43 @@ public class CardManager : MonoBehaviour
                 InstantiateCardElement(
                     config,
                     _cardNumbers[i],
-                    new Vector3(i, 0, -i * 0.1f),
                     _colors.GetColorConfig(config).Color1, 
                     _colors.GetColorConfig(config).Color2
                     );
             }
         }
     }
-    private void InstantiateCardElement(CardConfig config, string number, Vector3 position, Color color1, Color color2)
+    private void InstantiateCardElement(CardConfig config, string number, Color color1, Color color2)
     {
-        MainGame mainGame = gameObject.GetComponent<MainGame>();
-        CardElement card = Instantiate(_cardPrefab.gameObject, _cardContainer.position + position, Quaternion.identity, _cardContainer).GetComponent<CardElement>();
-        card.SetCard(
+        GameObject card = Instantiate(_cardPrefab.gameObject);
+        card.GetComponent<CardElement>().SetCard(
             new CardInfo(config, number), 
             RandomizeTexture(_backPaterns),
             color1,
             color2
             );
+        _deck.Add(card);
+    }
+    private void Deal()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < i + 1; j++)
+            {
+                GameObject card = _deck[UnityEngine.Random.Range(0, _deck.Count)];
+                _deck.Remove(card);
+                card.transform.SetParent(_columnContainers[i]);
+                card.transform.localScale = new Vector3(1,1,1);
+                card.transform.position = new Vector3(0, - j * 0.5f, - j) + _columnContainers[i].position;
+            }
+        }
+        foreach (GameObject card in _deck)
+        {
+            //_deck.Remove(card);
+            card.transform.SetParent(_pileContainer);
+            card.transform.localScale = new Vector3(1, 1, 1);
+            card.transform.position = new Vector3(0, 0, UnityEngine.Random.Range(0, - _deck.Count)) + _pileContainer.position;
+        }
     }
     private Sprite RandomizeTexture(Sprite[] sprites)
     {
