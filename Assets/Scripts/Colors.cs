@@ -2,30 +2,26 @@ using UnityEngine;
 
 public class Colors : MonoBehaviour
 {
-    [SerializeField] private Color _darkPurple;
-    static public Color DarkPurple;
-    public ColorConfig[] colorConfigs;
-    private void Start()
+    [SerializeField] public CardColorConfig[] ColorConfig;
+    public CardColorConfig GetColorConfig(CardConfig config)
     {
-        DarkPurple = _darkPurple;
+        foreach (CardColorConfig colorConfig in ColorConfig)
+        {
+            if (colorConfig.Config == config)
+            {
+                return colorConfig;
+            }
+        }
+        Debug.Log("error set up colorconfig");
+        return null;
     }
 }
-[System.Serializable]
-public class ColorInfo
-{
-    public string Name;
-    public Color Color;
-    ColorInfo(string name, Color color)
-    {
-        Name = name;
-        Color = color;
-    }
-}
-[System.Serializable]
-public class ColorConfig
-{
-    public string Name;
-    public ColorInfo ColorInfo;
-    public ColorInfo ColorInfo2;
 
+[CreateAssetMenu(fileName = "CardColorConfig", menuName = "Scriptable Objects/CardColorConfig")]
+public class CardColorConfig : ScriptableObject
+{
+    public CardConfig Config;
+    public Color Color1;
+    public Color Color2;
 }
+

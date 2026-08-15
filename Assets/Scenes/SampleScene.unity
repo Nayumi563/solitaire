@@ -193,22 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f21ff22f4de374da361361bee13c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _darkPurple: {r: 0.16862746, g: 0.15294118, b: 0.24313726, a: 1}
-  colorConfigs:
-  - Name: 
-    ColorInfo:
-      Name: 
-      Color: {r: 0, g: 0, b: 0, a: 0}
-    ColorInfo2:
-      Name: 
-      Color: {r: 0, g: 0, b: 0, a: 0}
-  - Name: 
-    ColorInfo:
-      Name: 
-      Color: {r: 0, g: 0, b: 0, a: 0}
-    ColorInfo2:
-      Name: 
-      Color: {r: 0, g: 0, b: 0, a: 0}
+  ColorConfig:
+  - {fileID: 11400000, guid: 66bc76fb0a42bd64394e1bda8e07f9a9, type: 2}
+  - {fileID: 11400000, guid: 588f2a9cb51b597469c5718c4033f631, type: 2}
+  - {fileID: 11400000, guid: 36919908018817c46b346ba1911e6f29, type: 2}
+  - {fileID: 11400000, guid: c68da7431b62136458f1daf1d2319a12, type: 2}
 --- !u!114 &227539596
 MonoBehaviour:
   m_ObjectHideFlags: 0
