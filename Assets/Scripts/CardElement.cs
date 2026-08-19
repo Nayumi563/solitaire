@@ -10,19 +10,11 @@ public class CardElement : MonoBehaviour
     [SerializeField] private Image _backPatern;
     [SerializeField] private Image _backGround;
     [SerializeField] private TMP_Text[] _cardNumberText;
-    [SerializeField] private GameObject _button;//discard if not use
-    private BoxCollider2D _collider;
-    private Vector3 _startDragPosition;
-    private Vector3 _mousePosition;
-
-    private void Awake()
-    {
-        _collider = gameObject.GetComponent<BoxCollider2D>();
-    }
 
     public void SetCardAtStart(CardInfo cardInfo, Sprite backPatern, Color colorBackground, Color colorBackPaterns)
     {
         Info = cardInfo;
+        Info.CardIsReturnChanged += Return;
         _backGround.color = colorBackground;
         _backPatern.sprite = backPatern;
         _backPatern.color = colorBackPaterns;
@@ -35,27 +27,15 @@ public class CardElement : MonoBehaviour
 
     public void Return(bool isReturn)
     {
-        Info.IsReturn = isReturn;
         _backCard.SetActive(isReturn);
         _frontCard.SetActive(!isReturn);
-        //_button.SetActive(!isReturn);//discard if not use
-    }
-
-    private void OnMouseDown()
-    {
-        _startDragPosition = gameObject.transform.position;
-        _mousePosition = Input.mousePosition - GetMousePosition();
-    }
-
-    private void OnMouseDrag()
-    {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
-    }
-
-    public Vector3 GetMousePosition()
-    {
-        Vector3 position = Camera.main.WorldToScreenPoint(transform.position);
-        position.z = 0;
-        return position;
+        if (isReturn)
+        {
+            gameObject.layer = 2;
+        }
+        else
+        {
+            gameObject.layer = 0;
+        }
     }
 }

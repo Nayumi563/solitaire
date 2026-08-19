@@ -7,7 +7,7 @@ public class DragAndDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private Vector3 _startDragPosition;
     private const float SCALE = 1.1f;
     private bool _isOnDrag;
-    private bool _isOncolllider;
+    private bool _isOnColllider;
     private InputSystem_Actions InputActions;
     private InputAction _trackingAction;
 
@@ -43,21 +43,27 @@ public class DragAndDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        _isOnColllider = false;
+
         foreach (Collider2D collider in CardManager.Instance.StorageContainer)
         {
-            if (collider.OverlapPoint(new Vector2(transform.position.x, transform.position.y)))
+            if (collider.OverlapPoint(new Vector2(transform.position.x, transform.position.y)) && !_isOnColllider)
             {
-                gameObject.transform.SetParent(collider.transform); // TODO: fonction in container element to add element
-                gameObject.transform.position = collider.transform.position;
-                _isOncolllider = true;
+                _isOnColllider = true;
+                collider.gameObject.GetComponent<ContainerElement>().AddElement(gameObject.GetComponent<CardElement>(), ResetPosition);
                 Debug.Log(collider);
             }
         }
-        if (!_isOncolllider)
+        if (!_isOnColllider)
         {
-            gameObject.transform.position = _startDragPosition;
+            ResetPosition();
         }
         _isOnDrag = false;
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = _startDragPosition;
     }
 
     private void OnEnable()

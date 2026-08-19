@@ -14,35 +14,32 @@ public class CardManager : MonoBehaviour
 {
     static public CardManager Instance;
     private Colors _colors;
-    [SerializeField] private string[] _cardNumbers;
+    [SerializeField] public string[] CardNumbers;
     [SerializeField] private Sprite[] _backPaterns;
     [SerializeField] private CardElement _cardPrefab;
     [SerializeField] public Collider2D[] StorageContainer;
-    [SerializeField] private Transform _pileContainer;
+    [SerializeField] private PileContainer _pileContainer;
     [SerializeField] private Transform[] _columnContainers;
     private List<GameObject> _deck = new List<GameObject>();
 
     public void Awake()
     {
         Instance = this;
-        _colors = gameObject.GetComponent<Colors>();
-    }
-
-    private void Start()
-    {
+        _colors = gameObject.GetComponent<Colors>(); 
         DeackCreation();
         Deal();
     }
+
     private void DeackCreation()
     {
         foreach (CardConfig config in Enum.GetValues(typeof(CardConfig)))
         {
-            for (int i = 0; i < _cardNumbers.Length; i++)
+            for (int i = 0; i < CardNumbers.Length; i++)
             {
                 InstantiateCardElement(
                     config,
-                    _cardNumbers[i],
-                    _colors.GetColorConfig(config).Color1, 
+                    CardNumbers[i],
+                    _colors.GetColorConfig(config).Color1,
                     _colors.GetColorConfig(config).Color2
                     );
             }
@@ -68,17 +65,17 @@ public class CardManager : MonoBehaviour
                 GameObject card = _deck[UnityEngine.Random.Range(0, _deck.Count)];
                 _deck.Remove(card);
                 card.transform.SetParent(_columnContainers[i]);
-                card.transform.localScale = new Vector3(1,1,1);
-                card.transform.position = new Vector3(0, - j * 0.3f, -j * 0.1f) + _columnContainers[i].position;
+                card.transform.localScale = new Vector3(1, 1, 1);
+                card.transform.position = new Vector3(0, -j * 0.3f, -j * 0.1f) + _columnContainers[i].position;
                 if (i - 1 == j)
-                    card.GetComponent<CardElement>().Return(false);
+                {
+                    card.GetComponent<CardElement>().Info.SetIsReturn(false);
+                }
             }
         }
         foreach (GameObject card in _deck)
         {
-            card.transform.SetParent(_pileContainer);
-            card.transform.localScale = new Vector3(1, 1, 1);
-            card.transform.position = new Vector3(0, 0, UnityEngine.Random.Range(0, - _deck.Count)) + _pileContainer.position;
+            _pileContainer.AddElement(card.GetComponent<CardElement>());//TODO: random
         }
     }
     private Sprite RandomizeTexture(Sprite[] sprites)
@@ -92,11 +89,21 @@ public class CardInfo
 {
     public CardConfig Config;
     public string Number;
-    public bool IsReturn;
+    public bool IsReturn { get; private set; }
+    public event Action<bool> CardIsReturnChanged;
     public CardInfo(CardConfig config, string number, bool isReturn = true)
     {
         Config = config;
         Number = number;
         IsReturn = isReturn;
+    }
+
+    public void SetIsReturn(bool isReturn)
+    {
+        if (IsReturn != isReturn)
+        {
+            CardIsReturnChanged.Invoke(isReturn);
+            IsReturn = isReturn;
+        }
     }
 }
