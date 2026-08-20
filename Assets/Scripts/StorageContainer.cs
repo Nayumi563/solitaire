@@ -5,12 +5,17 @@ public class StorageContainer : ContainerElement
     private int count = 0;
     public override void AddElement(CardElement element, Action resetPosition)
     {
-        if (element.Info.Number == CardManager.Instance.CardNumbers[count])
+        if (element.Info.Number == CardManager.Instance.CardNumbers[count] && count < CardManager.Instance.CardNumbers.Length)
         {
-            count++;
-            element.transform.SetParent(gameObject.transform);
-            element.transform.position = gameObject.transform.position;
+            base.AddElement(element, resetPosition);
             element.gameObject.layer = 2;
+
+            if (count != 0)
+            {
+                CardElements[count - 1].gameObject.SetActive(false);
+            }
+
+            count++;
         }
         else
         {

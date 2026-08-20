@@ -17,9 +17,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] public string[] CardNumbers;
     [SerializeField] private Sprite[] _backPaterns;
     [SerializeField] private CardElement _cardPrefab;
-    [SerializeField] public Collider2D[] StorageContainer;
+    [SerializeField] public Collider2D[] StorageContainers;
     [SerializeField] private PileContainer _pileContainer;
-    [SerializeField] private Transform[] _columnContainers;
+    [SerializeField] private Collider2D[] _columnContainers;
     private List<GameObject> _deck = new List<GameObject>();
 
     public void Awake()
@@ -45,6 +45,7 @@ public class CardManager : MonoBehaviour
             }
         }
     }
+
     private void InstantiateCardElement(CardConfig config, string number, Color color1, Color color2)
     {
         GameObject card = Instantiate(_cardPrefab.gameObject);
@@ -56,34 +57,41 @@ public class CardManager : MonoBehaviour
             );
         _deck.Add(card);
     }
+
     private void Deal()
     {
         for (int i = 0; i < 7; i++)
         {
-            for (int j = 0; j < i; j++)
+            for (int j = 0; j <= i; j++)
             {
                 GameObject card = _deck[UnityEngine.Random.Range(0, _deck.Count)];
                 _deck.Remove(card);
-                card.transform.SetParent(_columnContainers[i]);
+                //TODO: create prefab with script and instanciate in scene
+                //_columnContainers[i].AddElement(card);
+                //card.transform.SetParent(_columnContainers[i]);
                 card.transform.localScale = new Vector3(1, 1, 1);
-                card.transform.position = new Vector3(0, -j * 0.3f, -j * 0.1f) + _columnContainers[i].position;
-                if (i - 1 == j)
+                //card.transform.position = new Vector3(0, -j * 0.3f, -j * 0.1f) + _columnContainers[i].position;
+                if (i == j)
                 {
                     card.GetComponent<CardElement>().Info.SetIsReturn(false);
                 }
             }
         }
-        foreach (GameObject card in _deck)
+        for (int i = 0; i < 24; i++)
         {
-            _pileContainer.AddElement(card.GetComponent<CardElement>());//TODO: random
+            GameObject randomCard = _deck[UnityEngine.Random.Range(0, _deck.Count)];
+            _pileContainer.AddElement(randomCard.GetComponent<CardElement>());
+            _deck.Remove(randomCard);
         }
     }
+
     private Sprite RandomizeTexture(Sprite[] sprites)
     {
         int index = UnityEngine.Random.Range(0, sprites.Length);
         return sprites[index];
     }
 }
+
 [System.Serializable]
 public class CardInfo
 {
@@ -91,6 +99,7 @@ public class CardInfo
     public string Number;
     public bool IsReturn { get; private set; }
     public event Action<bool> CardIsReturnChanged;
+
     public CardInfo(CardConfig config, string number, bool isReturn = true)
     {
         Config = config;

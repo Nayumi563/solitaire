@@ -45,7 +45,7 @@ public class DragAndDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         _isOnColllider = false;
 
-        foreach (Collider2D collider in CardManager.Instance.StorageContainer)
+        foreach (Collider2D collider in CardManager.Instance.StorageContainers)
         {
             if (collider.OverlapPoint(new Vector2(transform.position.x, transform.position.y)) && !_isOnColllider)
             {
