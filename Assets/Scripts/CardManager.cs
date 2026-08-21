@@ -13,18 +13,33 @@ public enum CardConfig
 public class CardManager : MonoBehaviour
 {
     static public CardManager Instance;
-    private Colors _colors;
+    public Collider2D[] CardContainers;
     [SerializeField] public string[] CardNumbers;
     [SerializeField] private Sprite[] _backPaterns;
     [SerializeField] private CardElement _cardPrefab;
-    [SerializeField] public Collider2D[] StorageContainers;
+    [SerializeField] private Collider2D[] _storageContainers;
     [SerializeField] private PileContainer _pileContainer;
     [SerializeField] private Collider2D[] _columnContainers;
     private List<GameObject> _deck = new List<GameObject>();
+    private Colors _colors;
 
     public void Awake()
     {
         Instance = this;
+
+        CardContainers = new Collider2D[_storageContainers.Length + _columnContainers.Length];
+        for (int i = 0; i < CardContainers.Length; i++)
+        {
+            if (i < _storageContainers.Length)
+            {
+                CardContainers[i] = _storageContainers[i];
+            }
+            else
+            {
+                CardContainers[i] = _columnContainers[i - _storageContainers.Length];
+            }
+        }
+
         _colors = gameObject.GetComponent<Colors>(); 
         DeackCreation();
         Deal();
@@ -65,16 +80,8 @@ public class CardManager : MonoBehaviour
             for (int j = 0; j <= i; j++)
             {
                 GameObject card = _deck[UnityEngine.Random.Range(0, _deck.Count)];
+                _columnContainers[i].gameObject.GetComponent<ContainerElement>().AddElement(card.GetComponent<CardElement>());
                 _deck.Remove(card);
-                //TODO: create prefab with script and instanciate in scene
-                //_columnContainers[i].AddElement(card);
-                //card.transform.SetParent(_columnContainers[i]);
-                card.transform.localScale = new Vector3(1, 1, 1);
-                //card.transform.position = new Vector3(0, -j * 0.3f, -j * 0.1f) + _columnContainers[i].position;
-                if (i == j)
-                {
-                    card.GetComponent<CardElement>().Info.SetIsReturn(false);
-                }
             }
         }
         for (int i = 0; i < 24; i++)

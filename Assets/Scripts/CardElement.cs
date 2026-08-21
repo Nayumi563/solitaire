@@ -38,4 +38,9 @@ public class CardElement : MonoBehaviour
             gameObject.layer = 0;
         }
     }
+
+    private void OnDisable()
+    {
+        Info.CardIsReturnChanged -= Return;
+    }
 }

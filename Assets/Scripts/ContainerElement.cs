@@ -5,10 +5,6 @@ using UnityEngine;
 public abstract class ContainerElement : MonoBehaviour
 {
     public List<CardElement> CardElements = new();
-    private void OnTriggerEnter2D(Collider2D _enterCollider)
-    {
-        Debug.Log(_enterCollider + "in" + this);
-    }
 
     public virtual void AddElement(CardElement element)
     {
@@ -20,7 +16,12 @@ public abstract class ContainerElement : MonoBehaviour
 
     public virtual void AddElement(CardElement element, Action resetPosition)
     {
-        element.gameObject.GetComponentInParent<ContainerElement>().CardElements.Remove(element);
+        element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
         AddElement(element);
+    }
+
+    public virtual void RemoveElement(CardElement element)
+    {
+        CardElements.Remove(element);
     }
 }
