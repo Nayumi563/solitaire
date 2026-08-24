@@ -16,12 +16,19 @@ public abstract class ContainerElement : MonoBehaviour
 
     public virtual void AddElement(CardElement element, Action resetPosition)
     {
+        if (element.gameObject.GetComponentInParent<ContainerElement>() == this)
+        {
+            resetPosition();
+            return;
+        }
+
         element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
         AddElement(element);
     }
 
-    public virtual void RemoveElement(CardElement element)
+    public virtual int RemoveElement(CardElement element)
     {
         CardElements.Remove(element);
+        return 1;
     }
 }

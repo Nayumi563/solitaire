@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardConfig
+public enum CardCategory
 {
     Hearts,
     Diamonds,
@@ -47,7 +47,7 @@ public class CardManager : MonoBehaviour
 
     private void DeackCreation()
     {
-        foreach (CardConfig config in Enum.GetValues(typeof(CardConfig)))
+        foreach (CardCategory config in Enum.GetValues(typeof(CardCategory)))
         {
             for (int i = 0; i < CardNumbers.Length; i++)
             {
@@ -61,7 +61,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void InstantiateCardElement(CardConfig config, string number, Color color1, Color color2)
+    private void InstantiateCardElement(CardCategory config, string number, Color color1, Color color2)
     {
         GameObject card = Instantiate(_cardPrefab.gameObject);
         card.GetComponent<CardElement>().SetCardAtStart(
@@ -102,14 +102,14 @@ public class CardManager : MonoBehaviour
 [System.Serializable]
 public class CardInfo
 {
-    public CardConfig Config;
+    public CardCategory Category;
     public string Number;
     public bool IsReturn { get; private set; }
     public event Action<bool> CardIsReturnChanged;
 
-    public CardInfo(CardConfig config, string number, bool isReturn = true)
+    public CardInfo(CardCategory category, string number, bool isReturn = true)
     {
-        Config = config;
+        Category = category;
         Number = number;
         IsReturn = isReturn;
     }

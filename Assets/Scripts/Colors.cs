@@ -4,7 +4,7 @@ public class Colors : MonoBehaviour
 {
     public CardColorConfig[] ColorConfig;
 
-    public CardColorConfig GetColorConfig(CardConfig config)
+    public CardColorConfig GetColorConfig(CardCategory config)
     {
         foreach (CardColorConfig colorConfig in ColorConfig)
         {
@@ -21,7 +21,7 @@ public class Colors : MonoBehaviour
 [CreateAssetMenu(fileName = "CardColorConfig", menuName = "Scriptable Objects/CardColorConfig")]
 public class CardColorConfig : ScriptableObject
 {
-    public CardConfig Config;
+    public CardCategory Config;
     public Color Color1;
     public Color Color2;
 }

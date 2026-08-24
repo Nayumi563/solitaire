@@ -5,7 +5,7 @@ public class StorageContainer : ContainerElement
     private int count = 0;
     public override void AddElement(CardElement element, Action resetPosition)
     {
-        if (element.Info.Number == CardManager.Instance.CardNumbers[count] && count < CardManager.Instance.CardNumbers.Length)
+        if (count < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardManager.Instance.CardNumbers[count])
         {
             base.AddElement(element, resetPosition);
             element.gameObject.layer = 2;
