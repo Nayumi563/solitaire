@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardElement : MonoBehaviour
 {
@@ -9,8 +8,8 @@ public class CardElement : MonoBehaviour
     public List<CardElement> Childs = null;
     [SerializeField] private GameObject _backCard;
     [SerializeField] private GameObject _frontCard;
-    [SerializeField] private Image _backPatern;
-    [SerializeField] private Image _backGround;
+    [SerializeField] private SpriteRenderer _backPatern;
+    [SerializeField] private SpriteRenderer _backGround;
     [SerializeField] private TMP_Text[] _cardNumberText;
     [field: SerializeField] public Canvas Canvas { get; private set; }
 
@@ -39,7 +38,8 @@ public class CardElement : MonoBehaviour
         }
         else
         {
-            gameObject.layer = 0;
+            gameObject.layer = 6; //TODO: layer not change in game
+            Debug.Log($"try to set layer in draggable : {gameObject.name}");
         }
     }
 

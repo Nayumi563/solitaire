@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 227539594}
   - component: {fileID: 227539595}
   - component: {fileID: 227539596}
+  - component: {fileID: 227539597}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -251,6 +252,21 @@ MonoBehaviour:
   - {fileID: 456364773}
   - {fileID: 607306206}
   - {fileID: 1349317864}
+--- !u!114 &227539597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227539592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4250e0384d6d84a882a7f3b23cfd41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _draggableMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &230525116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,6 +278,18 @@ PrefabInstance:
     - target: {fileID: 6921403361212222592, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_Name
       value: cardColumnContainer 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
@@ -324,6 +352,18 @@ PrefabInstance:
     - target: {fileID: 6921403361212222592, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_Name
       value: cardColumnContainer 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
@@ -391,6 +431,18 @@ PrefabInstance:
     - target: {fileID: 1346672420119332364, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_Name
       value: card container storage 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,6 +563,7 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
+  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -518,7 +571,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -673,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 3
+  m_ComponentVersion: 2
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
@@ -739,6 +791,18 @@ PrefabInstance:
     - target: {fileID: 6921403361212222592, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_Name
       value: cardColumnContainer 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
@@ -823,6 +887,18 @@ PrefabInstance:
       value: card container storage 2
       objectReference: {fileID: 0}
     - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.5913
       objectReference: {fileID: 0}
@@ -887,6 +963,18 @@ PrefabInstance:
     - target: {fileID: 6921403361212222592, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_Name
       value: cardColumnContainer 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1084,6 +1172,18 @@ PrefabInstance:
       value: cardColumnContainer 3
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.1826
       objectReference: {fileID: 0}
@@ -1237,7 +1337,6 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &1466701042
 SpriteRenderer:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1256,8 +1355,6 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1279,11 +1376,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b0cc5a2e7ff22294a9c221c3705d4a25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1293,6 +1388,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1466701043
 Transform:
@@ -1304,7 +1400,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.8803, y: 2.8226, z: 0}
-  m_LocalScale: {x: 0.17217, y: 0.17217, z: 0.17217}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1418,7 +1514,6 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1476,6 +1571,18 @@ PrefabInstance:
     - target: {fileID: 1346672420119332364, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_Name
       value: card container storage 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1540,6 +1647,18 @@ PrefabInstance:
       value: cardColumnContainer 2
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.4782
       objectReference: {fileID: 0}
@@ -1600,6 +1719,18 @@ PrefabInstance:
     - target: {fileID: 1346672420119332364, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_Name
       value: card container storage 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4717765762970573886, guid: bbc78813579bc0d46aeb03d2d7f6f589, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1667,6 +1798,18 @@ PrefabInstance:
     - target: {fileID: 6921403361212222592, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_Name
       value: cardColumnContainer 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7418964383609475366, guid: b9962c906aa834c40a2ea6b536ffa925, type: 3}
       propertyPath: m_LocalPosition.x

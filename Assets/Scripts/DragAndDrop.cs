@@ -1,52 +1,36 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-public class DragAndDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class DragAndDrop : MonoBehaviour
 {
     private Vector3 _startDragPosition;
     private const float SCALE = 1.1f;
     private int _startOrderingLayer;
-    private bool _isOnDrag;
     private bool _isOnColllider;
-    private InputSystem_Actions InputActions;
-    private InputAction _trackingAction;
     private CardElement _cardElement;
 
     private void Awake()
     {
-        InputActions = new InputSystem_Actions();
-        _trackingAction = InputActions.DragAndDrop.Tracking;
         _cardElement = gameObject.GetComponent<CardElement>();
     }
 
-    private void Update()
-    {
-        if (_isOnDrag)
-        {
-            transform.position = new Vector3( Camera.main.ScreenToWorldPoint(_trackingAction.ReadValue<Vector2>()).x, Camera.main.ScreenToWorldPoint(_trackingAction.ReadValue<Vector2>()).y, -10);
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter()
     {
         transform.localScale = Vector2.one * SCALE;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit()
     {
         transform.localScale = Vector2.one;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown()
     {
         _startDragPosition = transform.position;
         _startOrderingLayer = _cardElement.Canvas.sortingOrder;
         _cardElement.Canvas.sortingOrder = 20;
-        _isOnDrag = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp()
     {
         _isOnColllider = false;
 
@@ -63,22 +47,11 @@ public class DragAndDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             ResetPosition();
         }
-        _isOnDrag = false;
     }
 
     private void ResetPosition()
     {
         transform.position = _startDragPosition;
         _cardElement.Canvas.sortingOrder = _startOrderingLayer;
-    }
-
-    private void OnEnable()
-    {
-        _trackingAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _trackingAction.Disable();
     }
 }

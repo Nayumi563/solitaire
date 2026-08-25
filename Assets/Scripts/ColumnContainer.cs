@@ -42,7 +42,7 @@ public class ColumnContainer : ContainerElement
         CardElements.Add(element);
 
         element.transform.position = CalculateCardPosition(_count);
-        element.Canvas.sortingOrder = _count;
+        //element.Canvas.sortingOrder = _count;
 
         _count++;
         if (element.Childs != null) 
@@ -51,7 +51,7 @@ public class ColumnContainer : ContainerElement
             {
                 CardElements.Add(child);
                 child.transform.position = CalculateCardPosition(_count);
-                child.Canvas.sortingOrder = _count;
+                //child.Canvas.sortingOrder = _count;
                 _count++;
             }
         }
@@ -93,6 +93,6 @@ public class ColumnContainer : ContainerElement
 
     private void OffsetCollider()
     {
-        Collider.transform.position = transform.position + new Vector3(0, CalculateCardPosition(_count).y); // TODO: Calculate better offset
+        Collider.transform.position = transform.position + new Vector3(0, CalculateCardPosition(_count).y);
     }
 }

@@ -1,6 +1,4 @@
 
-using System.Collections.Generic;
-
 public class PileContainer : ContainerElement
 {
     private int count = 0;
@@ -16,7 +14,6 @@ public class PileContainer : ContainerElement
         foreach (CardElement card in CardElements)
         {
             card.gameObject.SetActive(false);
-
         }
     }
 
