@@ -178,6 +178,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -259,9 +260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Info:
-    Config: 0
+    Category: 0
     Number: 
-    IsReturn: 0
   _backCard: {fileID: 324338651836088588}
   _frontCard: {fileID: 2694661302775423772}
   _backPatern: {fileID: 3424204226069414410}
@@ -269,7 +269,7 @@ MonoBehaviour:
   _cardNumberText:
   - {fileID: 7275426070494719368}
   - {fileID: 4324746879380895879}
-  _button: {fileID: 8446423002276709128}
+  <Canvas>k__BackingField: {fileID: 1156469782739874944}
 --- !u!61 &3424148403394950626
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6dbbadcc7bd034cbe0328b2293922e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardCanvas: {fileID: 1156469782739874944}
 --- !u!1 &2410953005934280336
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +759,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1015,6 +1017,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

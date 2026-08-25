@@ -2,20 +2,20 @@
 
 public class StorageContainer : ContainerElement
 {
-    private int count = 0;
+    private int _count = 0;
     public override void AddElement(CardElement element, Action resetPosition)
     {
-        if (count < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardManager.Instance.CardNumbers[count])
+        if (CardIsValid(element))
         {
             base.AddElement(element, resetPosition);
             element.gameObject.layer = 2;
 
-            if (count != 0)
+            if (_count != 0)
             {
-                CardElements[count - 1].gameObject.SetActive(false);
+                CardElements[_count - 1].gameObject.SetActive(false);
             }
 
-            count++;
+            _count++;
         }
         else
         {
@@ -23,5 +23,26 @@ public class StorageContainer : ContainerElement
         }
     }
 
+    private bool CardIsValid(CardElement element) {
+        if (_count < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardManager.Instance.CardNumbers[_count])
+        {
+            if (_count == 0) 
+            {
+                return true;
+            }
+            else if (CardElements[_count - 1].Info.Category == element.Info.Category) 
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        else 
+        {
+            return false;
+        }
+    }
 }
 

@@ -80,7 +80,7 @@ public class CardManager : MonoBehaviour
             for (int j = 0; j <= i; j++)
             {
                 GameObject card = _deck[UnityEngine.Random.Range(0, _deck.Count)];
-                _columnContainers[i].gameObject.GetComponent<ContainerElement>().AddElement(card.GetComponent<CardElement>());
+                _columnContainers[i].gameObject.GetComponentInParent<ContainerElement>().AddElement(card.GetComponent<CardElement>());
                 _deck.Remove(card);
             }
         }

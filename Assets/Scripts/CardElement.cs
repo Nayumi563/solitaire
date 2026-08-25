@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,11 +6,13 @@ using UnityEngine.UI;
 public class CardElement : MonoBehaviour
 {
     public CardInfo Info;
+    public List<CardElement> Childs = null;
     [SerializeField] private GameObject _backCard;
     [SerializeField] private GameObject _frontCard;
     [SerializeField] private Image _backPatern;
     [SerializeField] private Image _backGround;
     [SerializeField] private TMP_Text[] _cardNumberText;
+    [field: SerializeField] public Canvas Canvas { get; private set; }
 
     public void SetCardAtStart(CardInfo cardInfo, Sprite backPatern, Color colorBackground, Color colorBackPaterns)
     {
@@ -23,6 +26,7 @@ public class CardElement : MonoBehaviour
             text.text = cardInfo.Number;
         }
         Return(cardInfo.IsReturn);
+        name = $"{cardInfo.Number} {cardInfo.Category} card";
     }
 
     public void Return(bool isReturn)
@@ -36,6 +40,17 @@ public class CardElement : MonoBehaviour
         else
         {
             gameObject.layer = 0;
+        }
+    }
+
+    public void AddChild(CardElement element)
+    {
+        if (Childs == null) Childs = new List<CardElement>();
+        Childs.Add(element);
+        if (element.Childs != null) {
+            foreach (CardElement child in element.Childs) {
+                Childs.Add(child);
+            }
         }
     }
 

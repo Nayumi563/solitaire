@@ -9,7 +9,7 @@ public class ColumnContainer : ContainerElement
     public override void AddElement(CardElement element)
     {
         base.AddElement(element);
-        element.transform.position = CalculateOffset(_count);
+        element.transform.position = CalculateCardPosition(_count);
         if (_count != 0)
         {
             CardElements[_count - 1].Info.SetIsReturn(true);
@@ -26,6 +26,7 @@ public class ColumnContainer : ContainerElement
         if (_count == 0)
         {
             base.AddElement(element, resetPosition);
+            _count++;
             return;
         }
 
@@ -37,19 +38,27 @@ public class ColumnContainer : ContainerElement
 
         int removeElement = element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
         element.transform.SetParent(CardElements[_count - 1].gameObject.transform);
-        //CardElements[_count - 1].gameObject.GetComponent<BoxCollider2D>().size = new Vector2(CardElements[_count - 1].gameObject.GetComponent<BoxCollider2D>().size.x, _offset);
+        CardElements[_count - 1].AddChild(element);
         CardElements.Add(element);
-        element.transform.position = CalculateOffset(_count);
 
+        element.transform.position = CalculateCardPosition(_count);
+        element.Canvas.sortingOrder = _count;
 
-        if (_count != 0)
+        _count++;
+        if (element.Childs != null) 
         {
-            CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 2;
+            foreach (CardElement child in element.Childs) 
+            {
+                CardElements.Add(child);
+                child.transform.position = CalculateCardPosition(_count);
+                child.Canvas.sortingOrder = _count;
+                _count++;
+            }
         }
+        //CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 2;
 
         OffsetCollider();
 
-        _count += removeElement;
     }
 
     public override int RemoveElement(CardElement element)
@@ -58,36 +67,32 @@ public class ColumnContainer : ContainerElement
         {
             CardElements[CardElements.IndexOf(element) - 1].Info.SetIsReturn(false);
             CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 0;
+            CardElements[CardElements.IndexOf(element) - 1].Childs = null;
         }
 
-        int countRemoveElement = _count - CardElements.IndexOf(element);
-        Debug.Log(countRemoveElement);
+        int countRemoveElement = element.Childs == null ? countRemoveElement = 1 : countRemoveElement = element.Childs.Count + 1;
+        Debug.Log($"count remove element column container : {countRemoveElement}");
 
-        _count = CardElements.IndexOf(element);
-        //if (CardElements.IndexOf(element) != _count - 1)
-        //{
-        //    // remove element on top of index element in list
-        //    for (int i = CardElements.Count; i > CardElements.IndexOf(element); i--)
-        //    {
-        //        countRemoveElement++;
-        //        Debug.Log(countRemoveElement);
-        //        CardElements.RemoveAt(i);
-        //    }
-        //}
+
+        _count = CardElements.IndexOf(element) - 1;
         CardElements.Remove(element);
+        foreach (CardElement child in element.Childs )
+        {
+            CardElements.Remove(child);
+        }
 
         OffsetCollider();
 
         return countRemoveElement;
     }
 
-    private Vector3 CalculateOffset(int index)
+    private Vector3 CalculateCardPosition(int cardIndex)
     {
-        return gameObject.transform.position + new Vector3(0, -index * _offset, (-index - 1) * 0.1f);
+        return transform.position + new Vector3(0, -cardIndex * _offset, (-cardIndex - 1) * 0.1f);
     }
 
     private void OffsetCollider()
     {
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, CalculateOffset(_count).y * 5); // TODO: Calculate better offset
+        Collider.transform.position = transform.position + new Vector3(0, CalculateCardPosition(_count).y); // TODO: Calculate better offset
     }
 }

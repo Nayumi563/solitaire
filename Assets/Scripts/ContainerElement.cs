@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class ContainerElement : MonoBehaviour
 {
     public List<CardElement> CardElements = new();
+    public BoxCollider2D Collider;
 
     public virtual void AddElement(CardElement element)
     {
