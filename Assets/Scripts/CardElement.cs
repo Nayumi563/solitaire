@@ -39,13 +39,16 @@ public class CardElement : MonoBehaviour
         else
         {
             gameObject.layer = 6; //TODO: layer not change in game
-            Debug.Log($"try to set layer in draggable : {gameObject.name}");
+            //Debug.Log($"try to set layer in draggable : {gameObject.name}");
         }
     }
 
     public void AddChild(CardElement element)
     {
-        if (Childs == null) Childs = new List<CardElement>();
+        //Childs ??= new List<CardElement>();
+        if (Childs == null)
+            Childs = new List<CardElement>();
+
         Childs.Add(element);
         if (element.Childs != null) {
             foreach (CardElement child in element.Childs) {

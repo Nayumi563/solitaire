@@ -15,18 +15,18 @@ public class DragAndDrop : MonoBehaviour
 
     public void OnPointerEnter()
     {
-        transform.localScale = Vector2.one * SCALE;
+        transform.localScale = Vector3.one * SCALE;
     }
 
     public void OnPointerExit()
     {
-        transform.localScale = Vector2.one;
+        transform.localScale = Vector3.one;
     }
 
     public void OnPointerDown()
     {
         _startDragPosition = transform.position;
-        _startOrderingLayer = _cardElement.Canvas.sortingOrder;
+        //_startOrderingLayer = _cardElement.Canvas.sortingOrder;
         _cardElement.Canvas.sortingOrder = 20;
     }
 
@@ -40,7 +40,6 @@ public class DragAndDrop : MonoBehaviour
             {
                 _isOnColllider = true;
                 collider.gameObject.GetComponentInParent<ContainerElement>().AddElement(_cardElement, ResetPosition);
-                Debug.Log(collider);
             }
         }
         if (!_isOnColllider)
@@ -52,6 +51,6 @@ public class DragAndDrop : MonoBehaviour
     private void ResetPosition()
     {
         transform.position = _startDragPosition;
-        _cardElement.Canvas.sortingOrder = _startOrderingLayer;
+        //_cardElement.Canvas.sortingOrder = _startOrderingLayer;
     }
 }

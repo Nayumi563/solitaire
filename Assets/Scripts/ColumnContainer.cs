@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ColumnContainer : ContainerElement
@@ -36,29 +37,34 @@ public class ColumnContainer : ContainerElement
             return;
         }
 
-        int removeElement = element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
+        element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
         element.transform.SetParent(CardElements[_count - 1].gameObject.transform);
         CardElements[_count - 1].AddChild(element);
         CardElements.Add(element);
 
         element.transform.position = CalculateCardPosition(_count);
+        Debug.Log(element.gameObject.name + element.transform.position, element.gameObject);
+        Debug.Log(_count, gameObject);
+
         //element.Canvas.sortingOrder = _count;
 
         _count++;
-        if (element.Childs != null) 
-        {
-            foreach (CardElement child in element.Childs) 
-            {
+        if (element.Childs != null) {
+            // TODO: Use this technique if it doesn't break anything
+            //CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
+            //foreach (CardElement child in childrenCards) {
+
+            foreach (CardElement child in element.Childs) {
                 CardElements.Add(child);
                 child.transform.position = CalculateCardPosition(_count);
+                Debug.Log(child.gameObject.name + child.transform.position);
                 //child.Canvas.sortingOrder = _count;
                 _count++;
             }
         }
-        //CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 2;
+        Debug.Log($"{gameObject.name} cont = {_count}");
 
         OffsetCollider();
-
     }
 
     public override int RemoveElement(CardElement element)
@@ -66,7 +72,7 @@ public class ColumnContainer : ContainerElement
         if (CardElements.Count > 1)
         {
             CardElements[CardElements.IndexOf(element) - 1].Info.SetIsReturn(false);
-            CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 0;
+            //CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 0;
             CardElements[CardElements.IndexOf(element) - 1].Childs = null;
         }
 
@@ -74,12 +80,13 @@ public class ColumnContainer : ContainerElement
         Debug.Log($"count remove element column container : {countRemoveElement}");
 
 
-        _count = CardElements.IndexOf(element) - 1;
-        CardElements.Remove(element);
-        foreach (CardElement child in element.Childs )
-        {
-            CardElements.Remove(child);
+        _count = CardElements.IndexOf(element);
+        if (element.Childs != null) {
+            foreach (CardElement child in element.Childs) {
+                CardElements.Remove(child);
+            }
         }
+        CardElements.Remove(element);
 
         OffsetCollider();
 
