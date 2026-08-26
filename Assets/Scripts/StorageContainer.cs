@@ -10,9 +10,9 @@ public class StorageContainer : ContainerElement
             base.AddElement(element, resetPosition);
             element.gameObject.layer = 2;
 
-            if (_count != 0)
+            if (CardElements.Count > 1)
             {
-                CardElements[_count - 1].gameObject.SetActive(false);
+                CardElements[CardElements.Count - 2].gameObject.SetActive(false);
             }
 
             _count++;
@@ -24,13 +24,9 @@ public class StorageContainer : ContainerElement
     }
 
     private bool CardIsValid(CardElement element) {
-        if (_count < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardManager.Instance.CardNumbers[_count])
+        if (CardElements.Count - 1 < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardManager.Instance.CardNumbers[CardElements.Count])
         {
-            if (_count == 0) 
-            {
-                return true;
-            }
-            else if (CardElements[_count - 1].Info.Category == element.Info.Category) 
+            if (CardElements.Count == 0 || CardElements[CardElements.Count - 1].Info.Category == element.Info.Category) 
             {
                 return true;
             }

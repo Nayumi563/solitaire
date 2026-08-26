@@ -104,7 +104,7 @@ public class CardInfo
 {
     public CardCategory Category;
     public string Number;
-    public bool IsReturn { get; private set; }
+    [field: SerializeField] public bool IsReturn { get; private set; }
     public event Action<bool> CardIsReturnChanged;
 
     public CardInfo(CardCategory category, string number, bool isReturn = true)

@@ -2,11 +2,10 @@
 public class PileContainer : ContainerElement
 {
     private int count = 0;
-
-    public override void AddElement(CardElement element)
+    public override void AddElement(CardElement card)
     {
-        base.AddElement(element);
-        element.Info.SetIsReturn(false);
+        base.AddElement(card);
+        card.Info.SetIsReturn(false);
     }
 
     private void Start()

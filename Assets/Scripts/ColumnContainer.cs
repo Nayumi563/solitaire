@@ -1,33 +1,34 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ColumnContainer : ContainerElement
 {
-    private int _count = 0;
     private float _offset = 0.4f;
+    private BoxCollider2D _collider;
+
+    private void Awake()
+    {
+        _collider = GetComponentInChildren<BoxCollider2D>();
+    }
 
     public override void AddElement(CardElement element)
     {
         base.AddElement(element);
-        element.transform.position = CalculateCardPosition(_count);
-        if (_count != 0)
+        element.transform.position = CalculateCardPosition(CardElements.Count - 1);
+        if (CardElements.Count > 1)
         {
-            CardElements[_count - 1].Info.SetIsReturn(true);
+            CardElements[CardElements.Count - 2].Info.SetIsReturn(true);
         }
 
-        CardElements[_count].Info.SetIsReturn(false);
+        CardElements[CardElements.Count - 1].Info.SetIsReturn(false);
         OffsetCollider();
-
-        _count++;
     }
 
     public override void AddElement(CardElement element, Action resetPosition)
     {
-        if (_count == 0)
+        if (CardElements.Count == 0)
         {
             base.AddElement(element, resetPosition);
-            _count++;
             return;
         }
 
@@ -38,59 +39,34 @@ public class ColumnContainer : ContainerElement
         }
 
         element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
-        element.transform.SetParent(CardElements[_count - 1].gameObject.transform);
-        CardElements[_count - 1].AddChild(element);
-        CardElements.Add(element);
+        element.transform.SetParent(CardElements[CardElements.Count - 1].gameObject.transform);
 
-        element.transform.position = CalculateCardPosition(_count);
-        Debug.Log(element.gameObject.name + element.transform.position, element.gameObject);
-        Debug.Log(_count, gameObject);
-
-        //element.Canvas.sortingOrder = _count;
-
-        _count++;
-        if (element.Childs != null) {
-            // TODO: Use this technique if it doesn't break anything
-            //CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
-            //foreach (CardElement child in childrenCards) {
-
-            foreach (CardElement child in element.Childs) {
-                CardElements.Add(child);
-                child.transform.position = CalculateCardPosition(_count);
-                Debug.Log(child.gameObject.name + child.transform.position);
-                //child.Canvas.sortingOrder = _count;
-                _count++;
-            }
+        CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
+        foreach (CardElement child in childrenCards)
+        {
+            CardElements.Add(child);
+            child.transform.position = CalculateCardPosition(CardElements.Count - 1);
+            Debug.Log(child.gameObject.name + child.transform.position);
         }
-        Debug.Log($"{gameObject.name} cont = {_count}");
 
         OffsetCollider();
     }
 
-    public override int RemoveElement(CardElement element)
+    public override void RemoveElement(CardElement card)
     {
         if (CardElements.Count > 1)
         {
-            CardElements[CardElements.IndexOf(element) - 1].Info.SetIsReturn(false);
-            //CardElements[CardElements.IndexOf(element) - 1].gameObject.layer = 0;
-            CardElements[CardElements.IndexOf(element) - 1].Childs = null;
+            CardElements[CardElements.IndexOf(card) - 1].Info.SetIsReturn(false);
         }
 
-        int countRemoveElement = element.Childs == null ? countRemoveElement = 1 : countRemoveElement = element.Childs.Count + 1;
-        Debug.Log($"count remove element column container : {countRemoveElement}");
-
-
-        _count = CardElements.IndexOf(element);
-        if (element.Childs != null) {
-            foreach (CardElement child in element.Childs) {
-                CardElements.Remove(child);
-            }
+        CardElement[] childrenCards = card.GetComponentsInChildren<CardElement>();
+        foreach (CardElement child in childrenCards)
+        {
+            CardElements.Remove(child);
         }
-        CardElements.Remove(element);
+        CardElements.Remove(card);
 
         OffsetCollider();
-
-        return countRemoveElement;
     }
 
     private Vector3 CalculateCardPosition(int cardIndex)
@@ -100,6 +76,6 @@ public class ColumnContainer : ContainerElement
 
     private void OffsetCollider()
     {
-        Collider.transform.position = transform.position + new Vector3(0, CalculateCardPosition(_count).y);
+        _collider.transform.position = new Vector3(transform.position.x, CalculateCardPosition(CardElements.Count).y);
     }
 }

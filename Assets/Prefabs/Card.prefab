@@ -350,7 +350,7 @@ MonoBehaviour:
   Info:
     Category: 0
     Number: 
-  Childs: []
+    <IsReturn>k__BackingField: 0
   _backCard: {fileID: 8030938328012355017}
   _frontCard: {fileID: 3065098955091701411}
   _backPatern: {fileID: 548739191776668423}
@@ -358,7 +358,6 @@ MonoBehaviour:
   _cardNumberText:
   - {fileID: 7275426070494719368}
   - {fileID: 4324746879380895879}
-  <Canvas>k__BackingField: {fileID: 1156469782739874944}
 --- !u!61 &3424148403394950626
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -919,7 +918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2451837865553275980
 RectTransform:
   m_ObjectHideFlags: 0

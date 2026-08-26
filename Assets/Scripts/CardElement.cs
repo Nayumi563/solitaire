@@ -5,13 +5,11 @@ using UnityEngine;
 public class CardElement : MonoBehaviour
 {
     public CardInfo Info;
-    public List<CardElement> Childs = null;
     [SerializeField] private GameObject _backCard;
     [SerializeField] private GameObject _frontCard;
     [SerializeField] private SpriteRenderer _backPatern;
     [SerializeField] private SpriteRenderer _backGround;
     [SerializeField] private TMP_Text[] _cardNumberText;
-    [field: SerializeField] public Canvas Canvas { get; private set; }
 
     public void SetCardAtStart(CardInfo cardInfo, Sprite backPatern, Color colorBackground, Color colorBackPaterns)
     {
@@ -38,22 +36,7 @@ public class CardElement : MonoBehaviour
         }
         else
         {
-            gameObject.layer = 6; //TODO: layer not change in game
-            //Debug.Log($"try to set layer in draggable : {gameObject.name}");
-        }
-    }
-
-    public void AddChild(CardElement element)
-    {
-        //Childs ??= new List<CardElement>();
-        if (Childs == null)
-            Childs = new List<CardElement>();
-
-        Childs.Add(element);
-        if (element.Childs != null) {
-            foreach (CardElement child in element.Childs) {
-                Childs.Add(child);
-            }
+            gameObject.layer = 6;
         }
     }
 

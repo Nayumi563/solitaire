@@ -4,7 +4,6 @@ public class DragAndDrop : MonoBehaviour
 {
     private Vector3 _startDragPosition;
     private const float SCALE = 1.1f;
-    private int _startOrderingLayer;
     private bool _isOnColllider;
     private CardElement _cardElement;
 
@@ -26,8 +25,7 @@ public class DragAndDrop : MonoBehaviour
     public void OnPointerDown()
     {
         _startDragPosition = transform.position;
-        //_startOrderingLayer = _cardElement.Canvas.sortingOrder;
-        _cardElement.Canvas.sortingOrder = 20;
+
     }
 
     public void OnPointerUp()
@@ -51,6 +49,5 @@ public class DragAndDrop : MonoBehaviour
     private void ResetPosition()
     {
         transform.position = _startDragPosition;
-        //_cardElement.Canvas.sortingOrder = _startOrderingLayer;
     }
 }

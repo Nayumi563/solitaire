@@ -5,31 +5,29 @@ using UnityEngine;
 public abstract class ContainerElement : MonoBehaviour
 {
     public List<CardElement> CardElements = new();
-    public BoxCollider2D Collider;
 
-    public virtual void AddElement(CardElement element)
+    public virtual void AddElement(CardElement card)
     {
-        CardElements.Add(element);
-        element.transform.SetParent(transform);
-        element.transform.position = gameObject.transform.position;
-        element.transform.localScale = new Vector3(1, 1, 1);
+        CardElements.Add(card);
+        card.transform.SetParent(transform);
+        card.transform.position = gameObject.transform.position;
+        card.transform.localScale = new Vector3(1, 1, 1);
     }
 
-    public virtual void AddElement(CardElement element, Action resetPosition)
+    public virtual void AddElement(CardElement card, Action resetPosition)
     {
-        if (element.gameObject.GetComponentInParent<ContainerElement>() == this)
+        if (card.gameObject.GetComponentInParent<ContainerElement>() == this)
         {
             resetPosition();
             return;
         }
 
-        element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
-        AddElement(element);
+        card.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(card);
+        AddElement(card);
     }
 
-    public virtual int RemoveElement(CardElement element)
+    public virtual void RemoveElement(CardElement card)
     {
-        CardElements.Remove(element);
-        return 1;
+        CardElements.Remove(card);
     }
 }
