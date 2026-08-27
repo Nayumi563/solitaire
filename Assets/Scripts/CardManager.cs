@@ -53,7 +53,7 @@ public class CardManager : MonoBehaviour
             {
                 InstantiateCardElement(
                     config,
-                    CardNumbers[i],
+                    i,
                     _colors.GetColorConfig(config).Color1,
                     _colors.GetColorConfig(config).Color2
                     );
@@ -61,7 +61,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void InstantiateCardElement(CardCategory config, string number, Color color1, Color color2)
+    private void InstantiateCardElement(CardCategory config, int number, Color color1, Color color2)
     {
         GameObject card = Instantiate(_cardPrefab.gameObject);
         card.GetComponent<CardElement>().SetCardAtStart(
@@ -103,11 +103,11 @@ public class CardManager : MonoBehaviour
 public class CardInfo
 {
     public CardCategory Category;
-    public string Number;
+    public int Number;
     [field: SerializeField] public bool IsReturn { get; private set; }
     public event Action<bool> CardIsReturnChanged;
 
-    public CardInfo(CardCategory category, string number, bool isReturn = true)
+    public CardInfo(CardCategory category, int number, bool isReturn = true)
     {
         Category = category;
         Number = number;

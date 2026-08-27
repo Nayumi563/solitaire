@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PileContainer : ContainerCard {
     private int _count = -1;
+    [SerializeField] private Button _button;
     public override void AddElement(CardElement card) {
         base.AddElement(card);
         card.Info.SetIsReturn(false);
@@ -16,6 +18,11 @@ public class PileContainer : ContainerCard {
         }
         _count--;
         base.RemoveElement(card);
+
+        if (CardElements.Count == 0)
+        {
+            _button.gameObject.SetActive(false);
+        }
     }
 
     private void Start() {

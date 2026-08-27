@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ColumnContainer : ContainerCard
 {
@@ -25,11 +26,26 @@ public class ColumnContainer : ContainerCard
 
     public override bool AddCard(CardElement card)
     {
-        if (CardElements.Count == 0)
+        //TODO: conditions to drop
+        if (CardElements.Count != 0)
+        {
+            if (card.Info.Number != CardElements[CardElements.Count - 1].Info.Number - 1
+            || card.CardIsRed() == CardElements[CardElements.Count - 1].CardIsRed())
+            {
+                return false;
+            }
+        }
+        else if (card.Info.Number != 12)
+        {
+            return false;
+        }
+        
+        
+        if (CardElements.Count == 0 && card.Info.Number == 12)
         {
             card.transform.SetParent(transform);
         }
-        else 
+        else
         {
             card.transform.SetParent(CardElements[CardElements.Count - 1].gameObject.transform);
         }

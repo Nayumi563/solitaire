@@ -19,10 +19,10 @@ public class CardElement : MonoBehaviour
         _backPatern.color = colorBackPaterns;
         foreach (TMP_Text text in _cardNumberText)
         {
-            text.text = cardInfo.Number;
+            text.text = CardManager.Instance.CardNumbers[cardInfo.Number];
         }
         Return(cardInfo.IsReturn);
-        name = $"{cardInfo.Number} {cardInfo.Category} card";
+        name = $"{cardInfo.Number + 1} {cardInfo.Category} card";
     }
 
     public void Return(bool isReturn)
@@ -36,6 +36,18 @@ public class CardElement : MonoBehaviour
         else
         {
             gameObject.layer = 6;
+        }
+    }
+
+    public bool CardIsRed()
+    {
+        if (Info.Category == CardCategory.Hearts || Info.Category == CardCategory.Diamonds)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
