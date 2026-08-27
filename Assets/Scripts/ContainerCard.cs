@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ContainerElement : MonoBehaviour
+public abstract class ContainerCard : MonoBehaviour
 {
     public List<CardElement> CardElements = new();
 

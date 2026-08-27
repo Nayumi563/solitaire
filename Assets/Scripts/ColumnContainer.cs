@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ColumnContainer : ContainerElement
+public class ColumnContainer : ContainerCard
 {
     private float _offset = 0.4f;
     private BoxCollider2D _collider;
@@ -35,7 +34,6 @@ public class ColumnContainer : ContainerElement
             card.transform.SetParent(CardElements[CardElements.Count - 1].gameObject.transform);
         }
 
-        //CardElements.Add(element);
         CardElement[] childrenCards = card.GetComponentsInChildren<CardElement>();
         foreach (CardElement child in childrenCards)
         {
@@ -61,7 +59,6 @@ public class ColumnContainer : ContainerElement
         {
             CardElements.Remove(child);
         }
-        //CardElements.Remove(card);
         OffsetCollider();
     }
 

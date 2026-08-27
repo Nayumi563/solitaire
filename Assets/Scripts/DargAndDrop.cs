@@ -13,7 +13,7 @@ public class DargAndDrop : MonoBehaviour
     private CardElement _selectedCard;
     private Vector2 _offsetMouse;
     private Vector3 _startDragPosition;
-    private ContainerElement _startDragContainer;
+    private ContainerCard _startDragContainer;
     private const float SCALE = 1.1f;
     private bool _isOnColllider;
 
@@ -82,7 +82,7 @@ public class DargAndDrop : MonoBehaviour
             _offsetMouse = _selectedCard.transform.position - Camera.main.ScreenToWorldPoint(_trackingAction.ReadValue<Vector2>());
 
             _startDragPosition = _selectedCard.transform.position;
-            _startDragContainer = _selectedCard.GetComponentInParent<ContainerElement>();
+            _startDragContainer = _selectedCard.GetComponentInParent<ContainerCard>();
             //Debug.Log($"click on : {_hit.collider.gameObject.name}");
         }
     }
@@ -96,16 +96,17 @@ public class DargAndDrop : MonoBehaviour
 
             foreach (Collider2D collider in CardManager.Instance.CardContainers)
             {
-                ContainerElement container = collider.GetComponentInParent<ContainerElement>();
+                ContainerCard container = collider.GetComponentInParent<ContainerCard>();
                 if (collider.OverlapPoint(new Vector2(_selectedCard.transform.position.x, _selectedCard.transform.position.y)) && !_isOnColllider && container != _startDragContainer)
                 {
                     _isOnColllider = true;
                     bool isValid = container.AddCard(_selectedCard);
-                    _startDragContainer.RemoveElement(_selectedCard);
                     if (!isValid) 
                     {
-                        _startDragContainer.AddElement(_selectedCard);
+                        _selectedCard.transform.position = _startDragPosition;
+                        return;
                     }
+                    _startDragContainer.RemoveElement(_selectedCard);
                 }
             }
             if (!_isOnColllider)
@@ -125,6 +126,4 @@ public class DargAndDrop : MonoBehaviour
     {
         _selectedCard.transform.localScale = Vector3.one;
     }
-
-
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-public class StorageContainer : ContainerElement
+﻿public class StorageContainer : ContainerCard
 {
     public override bool AddCard(CardElement element)
     {
