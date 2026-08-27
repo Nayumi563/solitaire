@@ -2,24 +2,22 @@
 
 public class StorageContainer : ContainerElement
 {
-    private int _count = 0;
-    public override void AddElement(CardElement element, Action resetPosition)
+    public override bool AddCard(CardElement element)
     {
         if (CardIsValid(element))
         {
-            base.AddElement(element, resetPosition);
+            base.AddElement(element);
             element.gameObject.layer = 2;
 
             if (CardElements.Count > 1)
             {
                 CardElements[CardElements.Count - 2].gameObject.SetActive(false);
             }
-
-            _count++;
+            return true;
         }
         else
         {
-            resetPosition();
+            return false;
         }
     }
 

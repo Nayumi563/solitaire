@@ -1,4 +1,6 @@
 
+using Unity.VisualScripting;
+
 public class PileContainer : ContainerElement
 {
     private int count = 0;
@@ -18,9 +20,12 @@ public class PileContainer : ContainerElement
 
     public void OnClickPile()
     {
-        CardElements[count % CardElements.Count].gameObject.SetActive(false);
-        count++;
-        CardElements[count % CardElements.Count].gameObject.SetActive(true);
+        if (CardElements.Count > 0) 
+        {
+            CardElements[count % CardElements.Count].gameObject.SetActive(false);
+            count++;
+            CardElements[count % CardElements.Count].gameObject.SetActive(true);
+        }
     }
 
 }

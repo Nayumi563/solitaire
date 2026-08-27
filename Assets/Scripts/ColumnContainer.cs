@@ -24,37 +24,34 @@ public class ColumnContainer : ContainerElement
         OffsetCollider();
     }
 
-    public override void AddElement(CardElement element, Action resetPosition)
+    public override bool AddCard(CardElement card)
     {
         if (CardElements.Count == 0)
         {
-            base.AddElement(element, resetPosition);
-            return;
+            card.transform.SetParent(transform);
         }
-
-        if (element.gameObject.GetComponentInParent<ContainerElement>() == this)
+        else 
         {
-            resetPosition();
-            return;
+            card.transform.SetParent(CardElements[CardElements.Count - 1].gameObject.transform);
         }
 
-        element.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(element);
-        element.transform.SetParent(CardElements[CardElements.Count - 1].gameObject.transform);
-
-        CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
+        //CardElements.Add(element);
+        CardElement[] childrenCards = card.GetComponentsInChildren<CardElement>();
         foreach (CardElement child in childrenCards)
         {
             CardElements.Add(child);
+
             child.transform.position = CalculateCardPosition(CardElements.Count - 1);
             Debug.Log(child.gameObject.name + child.transform.position);
         }
 
         OffsetCollider();
+        return true;
     }
 
     public override void RemoveElement(CardElement card)
     {
-        if (CardElements.Count > 1)
+        if (CardElements.IndexOf(card) > 0)
         {
             CardElements[CardElements.IndexOf(card) - 1].Info.SetIsReturn(false);
         }
@@ -64,8 +61,7 @@ public class ColumnContainer : ContainerElement
         {
             CardElements.Remove(child);
         }
-        CardElements.Remove(card);
-
+        //CardElements.Remove(card);
         OffsetCollider();
     }
 

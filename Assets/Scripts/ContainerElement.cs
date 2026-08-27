@@ -14,16 +14,10 @@ public abstract class ContainerElement : MonoBehaviour
         card.transform.localScale = new Vector3(1, 1, 1);
     }
 
-    public virtual void AddElement(CardElement card, Action resetPosition)
+    public virtual bool AddCard(CardElement card)
     {
-        if (card.gameObject.GetComponentInParent<ContainerElement>() == this)
-        {
-            resetPosition();
-            return;
-        }
-
-        card.gameObject.GetComponentInParent<ContainerElement>().RemoveElement(card);
         AddElement(card);
+        return true;
     }
 
     public virtual void RemoveElement(CardElement card)

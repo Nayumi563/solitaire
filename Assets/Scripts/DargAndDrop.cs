@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TestRaycast : MonoBehaviour
+public class DargAndDrop : MonoBehaviour
 {
     private bool _isDragging;
     private bool _isSelected;
@@ -13,6 +13,7 @@ public class TestRaycast : MonoBehaviour
     private CardElement _selectedCard;
     private Vector2 _offsetMouse;
     private Vector3 _startDragPosition;
+    private ContainerElement _startDragContainer;
     private const float SCALE = 1.1f;
     private bool _isOnColllider;
 
@@ -78,9 +79,10 @@ public class TestRaycast : MonoBehaviour
         if (_hit.collider != null)
         {
             _isDragging = true;
-            _startDragPosition = _selectedCard.transform.position;
             _offsetMouse = _selectedCard.transform.position - Camera.main.ScreenToWorldPoint(_trackingAction.ReadValue<Vector2>());
-            //_selectedCard.GetComponentInParent<ContainerElement>().RemoveElement(_selectedCard);
+
+            _startDragPosition = _selectedCard.transform.position;
+            _startDragContainer = _selectedCard.GetComponentInParent<ContainerElement>();
             //Debug.Log($"click on : {_hit.collider.gameObject.name}");
         }
     }
@@ -94,15 +96,21 @@ public class TestRaycast : MonoBehaviour
 
             foreach (Collider2D collider in CardManager.Instance.CardContainers)
             {
-                if (collider.OverlapPoint(new Vector2(_selectedCard.transform.position.x, _selectedCard.transform.position.y)) && !_isOnColllider)
+                ContainerElement container = collider.GetComponentInParent<ContainerElement>();
+                if (collider.OverlapPoint(new Vector2(_selectedCard.transform.position.x, _selectedCard.transform.position.y)) && !_isOnColllider && container != _startDragContainer)
                 {
                     _isOnColllider = true;
-                    collider.gameObject.GetComponentInParent<ContainerElement>().AddElement(_selectedCard, ResetPosition);
+                    bool isValid = container.AddCard(_selectedCard);
+                    _startDragContainer.RemoveElement(_selectedCard);
+                    if (!isValid) 
+                    {
+                        _startDragContainer.AddElement(_selectedCard);
+                    }
                 }
             }
             if (!_isOnColllider)
             {
-                ResetPosition();
+                _selectedCard.transform.position = _startDragPosition;
             }
         }
     }
@@ -113,13 +121,10 @@ public class TestRaycast : MonoBehaviour
         _selectedCard.transform.localScale = Vector3.one * SCALE;
     }
 
-    public void OnPointerExit()
+    private void OnPointerExit()
     {
         _selectedCard.transform.localScale = Vector3.one;
     }
 
-    private void ResetPosition()
-    {
-        _selectedCard.transform.position = _startDragPosition;
-    }
+
 }
