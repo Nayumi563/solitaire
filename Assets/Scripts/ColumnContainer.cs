@@ -26,7 +26,6 @@ public class ColumnContainer : ContainerCard
 
     public override bool AddCard(CardElement card)
     {
-        //TODO: conditions to drop
         if (CardElements.Count != 0)
         {
             if (card.Info.Number != CardElements[CardElements.Count - 1].Info.Number - 1
@@ -35,13 +34,13 @@ public class ColumnContainer : ContainerCard
                 return false;
             }
         }
-        else if (card.Info.Number != 12)
+        else if (card.Info.Number != 13)
         {
             return false;
         }
         
         
-        if (CardElements.Count == 0 && card.Info.Number == 12)
+        if (CardElements.Count == 0)
         {
             card.transform.SetParent(transform);
         }

@@ -19,10 +19,10 @@ public class CardElement : MonoBehaviour
         _backPatern.color = colorBackPaterns;
         foreach (TMP_Text text in _cardNumberText)
         {
-            text.text = CardManager.Instance.CardNumbers[cardInfo.Number];
+            text.text = CardManager.Instance.CardNumbers[cardInfo.Number - 1];
         }
         Return(cardInfo.IsReturn);
-        name = $"{cardInfo.Number + 1} {cardInfo.Category} card";
+        name = $"{cardInfo.Number} {cardInfo.Category} card";
     }
 
     public void Return(bool isReturn)

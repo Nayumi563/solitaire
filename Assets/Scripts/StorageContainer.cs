@@ -20,7 +20,7 @@
     }
 
     private bool CardIsValid(CardElement element) {
-        if (CardElements.Count - 1 < CardManager.Instance.CardNumbers.Length && element.Info.Number == CardElements.Count)
+        if (CardElements.Count - 1 < CardManager.Instance.CardNumbers.Length && element.Info.Number - 1 == CardElements.Count)
         {
             if (CardElements.Count == 0 || CardElements[CardElements.Count - 1].Info.Category == element.Info.Category) 
             {

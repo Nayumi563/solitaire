@@ -53,7 +53,7 @@ public class CardManager : MonoBehaviour
             {
                 InstantiateCardElement(
                     config,
-                    i,
+                    i + 1,
                     _colors.GetColorConfig(config).Color1,
                     _colors.GetColorConfig(config).Color2
                     );
