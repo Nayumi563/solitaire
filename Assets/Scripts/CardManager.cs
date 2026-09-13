@@ -41,6 +41,10 @@ public class CardManager : MonoBehaviour
         }
 
         _colors = gameObject.GetComponent<Colors>(); 
+    }
+
+    public void Start()
+    {
         DeackCreation();
         Deal();
     }
@@ -99,27 +103,3 @@ public class CardManager : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class CardInfo
-{
-    public CardCategory Category;
-    public int Number;
-    [field: SerializeField] public bool IsReturn { get; private set; }
-    public event Action<bool> CardIsReturnChanged;
-
-    public CardInfo(CardCategory category, int number, bool isReturn = true)
-    {
-        Category = category;
-        Number = number;
-        IsReturn = isReturn;
-    }
-
-    public void SetIsReturn(bool isReturn)
-    {
-        if (IsReturn != isReturn)
-        {
-            CardIsReturnChanged.Invoke(isReturn);
-            IsReturn = isReturn;
-        }
-    }
-}
