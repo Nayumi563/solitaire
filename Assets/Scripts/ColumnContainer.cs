@@ -1,14 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ColumnContainer : ContainerCard
 {
-    private float _offset = 0.4f;
+    private const float OFFSET = 0.4f;
+    private float _offset;
     private BoxCollider2D _collider;
 
     private void Awake()
     {
         _collider = GetComponentInChildren<BoxCollider2D>();
+        _offset = OFFSET;
     }
 
     public override void AddElement(CardElement element)
@@ -74,11 +75,30 @@ public class ColumnContainer : ContainerCard
         {
             CardElements.Remove(child);
         }
+        CalculateCardPosition(CardElements.Count - 1);
         OffsetCollider();
     }
 
     private Vector3 CalculateCardPosition(int cardIndex)
     {
+        if (CardElements.Count > 8)
+        {
+            _offset = -cardIndex * OFFSET / CardElements.Count;
+            foreach (CardElement card in CardElements)
+            {
+                card.transform.position = transform.position + new Vector3(0, -CardElements.IndexOf(card) * _offset /** (CardElements.Count * 0.12f)*/, (-CardElements.IndexOf(card) - 1) * 0.1f);
+                Debug.Log(card.gameObject.name + card.transform.position);
+            }
+        }
+        else
+        {
+            _offset = OFFSET;
+            foreach (CardElement card in CardElements)
+            {
+                card.transform.position = transform.position + new Vector3(0, -CardElements.IndexOf(card) * _offset, (-CardElements.IndexOf(card) - 1) * 0.1f);
+                Debug.Log(card.gameObject.name + card.transform.position);
+            }
+        }
         return transform.position + new Vector3(0, -cardIndex * _offset, (-cardIndex - 1) * 0.1f);
     }
 
