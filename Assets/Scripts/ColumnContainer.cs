@@ -81,23 +81,12 @@ public class ColumnContainer : ContainerCard
 
     private Vector3 CalculateCardPosition(int cardIndex)
     {
-        if (CardElements.Count > 8)
+        _offset = CardElements.Count > 8 ? 8 * OFFSET / CardElements.Count : _offset = OFFSET;
+
+        foreach (CardElement card in CardElements)
         {
-            _offset = -cardIndex * OFFSET / CardElements.Count;
-            foreach (CardElement card in CardElements)
-            {
-                card.transform.position = transform.position + new Vector3(0, -CardElements.IndexOf(card) * _offset /** (CardElements.Count * 0.12f)*/, (-CardElements.IndexOf(card) - 1) * 0.1f);
-                Debug.Log(card.gameObject.name + card.transform.position);
-            }
-        }
-        else
-        {
-            _offset = OFFSET;
-            foreach (CardElement card in CardElements)
-            {
-                card.transform.position = transform.position + new Vector3(0, -CardElements.IndexOf(card) * _offset, (-CardElements.IndexOf(card) - 1) * 0.1f);
-                Debug.Log(card.gameObject.name + card.transform.position);
-            }
+            card.transform.position = transform.position + new Vector3(0, -CardElements.IndexOf(card) * _offset, (-CardElements.IndexOf(card) - 1) * 0.1f);
+            Debug.Log(card.gameObject.name + card.transform.position);
         }
         return transform.position + new Vector3(0, -cardIndex * _offset, (-cardIndex - 1) * 0.1f);
     }
