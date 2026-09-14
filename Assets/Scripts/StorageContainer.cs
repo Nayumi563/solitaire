@@ -6,7 +6,8 @@ public class StorageContainer : ContainerCard
     {
         CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
 
-        if (CardElements.Count - 1 < CardManager.Instance.CardNumbers.Length && element.Info.Number - 1 == CardElements.Count && childrenCards.Length == 1 && (CardElements.Count == 0 || CardElements[CardElements.Count - 1].Info.Category == element.Info.Category))
+        if (CardElements.Count - 1 < CardManager.Instance.CardNumbers.Length && element.Info.Number - 1 == CardElements.Count && childrenCards.Length == 1 
+            && (CardElements.Count == 0 || CardElements[CardElements.Count - 1].Info.Category == element.Info.Category))
         {
             base.AddElement(element);
             element.gameObject.layer = 2;

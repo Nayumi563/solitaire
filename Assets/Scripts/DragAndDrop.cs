@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DargAndDrop : MonoBehaviour
+public class DragAndDrop : MonoBehaviour
 {
     private bool _isDragging;
     private bool _isSelected;

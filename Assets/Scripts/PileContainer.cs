@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PileContainer : ContainerCard {
+public class PileContainer : ContainerCard 
+{
     private int _count = -1;
     [SerializeField] private Button _button;
 
-    public override void AddElement(CardElement card) {
+    public override void AddElement(CardElement card) 
+    {
         base.AddElement(card);
         card.Info.SetIsReturn(false);
     }
 
-    public override void RemoveElement(CardElement card) {
+    public override void RemoveElement(CardElement card) 
+    {
         base.RemoveElement(card);
 
         if (CardElements.Count == 0)
@@ -23,14 +26,16 @@ public class PileContainer : ContainerCard {
         UpdatePile();
     }
 
-    private void Start() {
+    private void Start() 
+    {
         foreach (CardElement card in CardElements) 
         {
             card.gameObject.SetActive(false);
         }
     }
 
-    public void OnClickPile() {
+    public void OnClickPile() 
+    {
         _count++;
         UpdatePile();
     }
