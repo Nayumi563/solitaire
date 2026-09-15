@@ -2,6 +2,7 @@
 
 public class StorageContainer : ContainerCard
 {
+    public bool IsCompleted;
     public override bool AddCard(CardElement element)
     {
         CardElement[] childrenCards = element.GetComponentsInChildren<CardElement>();
@@ -16,6 +17,10 @@ public class StorageContainer : ContainerCard
             {
                 CardElements[CardElements.Count - 2].gameObject.SetActive(false);
             }
+
+            IsCompleted = CardElements.Count == CardManager.Instance.CardNumbers.Length ? true : false;
+            CardManager.Instance.CheckIsFinish();
+
             return true;
         }
         else

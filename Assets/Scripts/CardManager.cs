@@ -20,6 +20,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Collider2D[] _storageContainers;
     [SerializeField] private PileContainer _pileContainer;
     [SerializeField] private Collider2D[] _columnContainers;
+    [SerializeField] private GameObject _winWindow;
     private List<GameObject> _deck = new List<GameObject>();
     private Colors _colors;
 
@@ -40,7 +41,8 @@ public class CardManager : MonoBehaviour
             }
         }
 
-        _colors = gameObject.GetComponent<Colors>(); 
+        _colors = gameObject.GetComponent<Colors>();
+        _winWindow.SetActive(false);
     }
 
     public void Start()
@@ -94,6 +96,19 @@ public class CardManager : MonoBehaviour
             _pileContainer.AddElement(randomCard.GetComponent<CardElement>());
             _deck.Remove(randomCard);
         }
+    }
+
+    public void CheckIsFinish()
+    {
+        foreach (Collider2D container in _storageContainers)
+        {
+            if (container.GetComponentInParent<StorageContainer>().IsCompleted == false)
+            {
+                return;
+            }
+        }
+
+        _winWindow.SetActive(true);
     }
 
     private Sprite RandomizeTexture(Sprite[] sprites)
