@@ -1112,9 +1112,19 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""Clicking"",
+                    ""name"": ""ClickRight"",
                     ""type"": ""Button"",
                     ""id"": ""857d7f89-77d6-498e-aef8-a704e49056f1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""ClickLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""5dfb57aa-c9aa-427e-ac13-335e37a977dc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1137,11 +1147,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e2b4ff3e-52b8-464b-a50d-c63ce3f2f0e3"",
-                    ""path"": ""<Pointer>/press"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Clicking"",
+                    ""action"": ""ClickRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e591ef2-ab8c-43cc-83a0-872b9c146db1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClickLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1237,7 +1258,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // DragAndDrop
         m_DragAndDrop = asset.FindActionMap("DragAndDrop", throwIfNotFound: true);
         m_DragAndDrop_Tracking = m_DragAndDrop.FindAction("Tracking", throwIfNotFound: true);
-        m_DragAndDrop_Clicking = m_DragAndDrop.FindAction("Clicking", throwIfNotFound: true);
+        m_DragAndDrop_ClickRight = m_DragAndDrop.FindAction("ClickRight", throwIfNotFound: true);
+        m_DragAndDrop_ClickLeft = m_DragAndDrop.FindAction("ClickLeft", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1700,7 +1722,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DragAndDrop;
     private List<IDragAndDropActions> m_DragAndDropActionsCallbackInterfaces = new List<IDragAndDropActions>();
     private readonly InputAction m_DragAndDrop_Tracking;
-    private readonly InputAction m_DragAndDrop_Clicking;
+    private readonly InputAction m_DragAndDrop_ClickRight;
+    private readonly InputAction m_DragAndDrop_ClickLeft;
     /// <summary>
     /// Provides access to input actions defined in input action map "DragAndDrop".
     /// </summary>
@@ -1717,9 +1740,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Tracking => m_Wrapper.m_DragAndDrop_Tracking;
         /// <summary>
-        /// Provides access to the underlying input action "DragAndDrop/Clicking".
+        /// Provides access to the underlying input action "DragAndDrop/ClickRight".
         /// </summary>
-        public InputAction @Clicking => m_Wrapper.m_DragAndDrop_Clicking;
+        public InputAction @ClickRight => m_Wrapper.m_DragAndDrop_ClickRight;
+        /// <summary>
+        /// Provides access to the underlying input action "DragAndDrop/ClickLeft".
+        /// </summary>
+        public InputAction @ClickLeft => m_Wrapper.m_DragAndDrop_ClickLeft;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1749,9 +1776,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Tracking.started += instance.OnTracking;
             @Tracking.performed += instance.OnTracking;
             @Tracking.canceled += instance.OnTracking;
-            @Clicking.started += instance.OnClicking;
-            @Clicking.performed += instance.OnClicking;
-            @Clicking.canceled += instance.OnClicking;
+            @ClickRight.started += instance.OnClickRight;
+            @ClickRight.performed += instance.OnClickRight;
+            @ClickRight.canceled += instance.OnClickRight;
+            @ClickLeft.started += instance.OnClickLeft;
+            @ClickLeft.performed += instance.OnClickLeft;
+            @ClickLeft.canceled += instance.OnClickLeft;
         }
 
         /// <summary>
@@ -1766,9 +1796,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Tracking.started -= instance.OnTracking;
             @Tracking.performed -= instance.OnTracking;
             @Tracking.canceled -= instance.OnTracking;
-            @Clicking.started -= instance.OnClicking;
-            @Clicking.performed -= instance.OnClicking;
-            @Clicking.canceled -= instance.OnClicking;
+            @ClickRight.started -= instance.OnClickRight;
+            @ClickRight.performed -= instance.OnClickRight;
+            @ClickRight.canceled -= instance.OnClickRight;
+            @ClickLeft.started -= instance.OnClickLeft;
+            @ClickLeft.performed -= instance.OnClickLeft;
+            @ClickLeft.canceled -= instance.OnClickLeft;
         }
 
         /// <summary>
@@ -2031,11 +2064,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTracking(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Clicking" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "ClickRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnClicking(InputAction.CallbackContext context);
+        void OnClickRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ClickLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClickLeft(InputAction.CallbackContext context);
     }
 }

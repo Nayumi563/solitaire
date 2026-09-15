@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,8 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] private LayerMask _draggableMask;
     private InputSystem_Actions _inputActions;
     private InputAction _trackingAction;
-    private InputAction _clickingAction;
+    private InputAction _clickLeftAction;
+    private InputAction _clickRightAction;
     private RaycastHit2D _hit;
     private CardElement _selectedCard;
     private Vector2 _offsetMouse;
@@ -21,7 +23,8 @@ public class DragAndDrop : MonoBehaviour
     {
         _inputActions = new InputSystem_Actions();
         _trackingAction = _inputActions.DragAndDrop.Tracking;
-        _clickingAction = _inputActions.DragAndDrop.Clicking;
+        _clickLeftAction = _inputActions.DragAndDrop.ClickLeft;
+        _clickRightAction = _inputActions.DragAndDrop.ClickRight;
     }
 
     private void Update()
@@ -61,17 +64,40 @@ public class DragAndDrop : MonoBehaviour
     private void OnEnable()
     {
         _trackingAction.Enable();
-        _clickingAction.Enable();
-        _clickingAction.started += OnClickDown;
-        _clickingAction.canceled += OnClickUp;
+        _clickLeftAction.Enable();
+        _clickLeftAction.started += OnClickDown;
+        _clickLeftAction.canceled += OnClickUp;
+        _clickRightAction.Enable();
+        _clickRightAction.performed += OnClickRight;
     }
 
     private void OnDisable()
     {
         _trackingAction.Disable();
-        _clickingAction.Disable();
-        _clickingAction.started -= OnClickDown;
-        _clickingAction.canceled -= OnClickUp;
+        _clickLeftAction.Disable();
+        _clickLeftAction.started -= OnClickDown;
+        _clickLeftAction.canceled -= OnClickUp;
+        _clickRightAction.Disable();
+        _clickRightAction.performed -= OnClickRight;
+    }
+
+    private void OnClickRight(InputAction.CallbackContext context)
+    {
+        if (_isSelected)
+        {
+            _startDragContainer = _selectedCard.GetComponentInParent<ContainerCard>();
+
+            foreach (Collider2D collider in CardManager.Instance.CardContainers)
+            {
+                ContainerCard container = collider.GetComponentInParent<ContainerCard>();
+                bool isValid = container.AddCard(_selectedCard);
+                if (isValid)
+                {
+                    _startDragContainer.RemoveElement(_selectedCard);
+                    return;
+                }
+            }
+        }
     }
 
     private void OnClickDown(InputAction.CallbackContext context)
