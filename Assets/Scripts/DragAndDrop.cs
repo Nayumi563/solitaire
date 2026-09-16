@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class DragAndDrop : MonoBehaviour
 {
+    static public DragAndDrop Instance;
     private bool _isDragging;
     private bool _isSelected;
     [SerializeField] private LayerMask _draggableMask;
@@ -21,6 +22,7 @@ public class DragAndDrop : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _inputActions = new InputSystem_Actions();
         _trackingAction = _inputActions.DragAndDrop.Tracking;
         _clickLeftAction = _inputActions.DragAndDrop.ClickLeft;
@@ -85,17 +87,22 @@ public class DragAndDrop : MonoBehaviour
     {
         if (_isSelected)
         {
-            _startDragContainer = _selectedCard.GetComponentInParent<ContainerCard>();
+            ChangeCardContainer(_selectedCard);
+        }
+    }
 
-            foreach (Collider2D collider in CardManager.Instance.CardContainers)
+    public void ChangeCardContainer(CardElement card) 
+    {
+        _startDragContainer = card.GetComponentInParent<ContainerCard>();
+
+        foreach (Collider2D collider in CardManager.Instance.CardContainers)
+        {
+            ContainerCard container = collider.GetComponentInParent<ContainerCard>();
+            bool isValid = container.AddCard(card);
+            if (isValid)
             {
-                ContainerCard container = collider.GetComponentInParent<ContainerCard>();
-                bool isValid = container.AddCard(_selectedCard);
-                if (isValid)
-                {
-                    _startDragContainer.RemoveElement(_selectedCard);
-                    return;
-                }
+                _startDragContainer.RemoveElement(card);
+                return;
             }
         }
     }

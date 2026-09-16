@@ -98,17 +98,46 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void CheckIsFinish()
+    public void CheckWinIsPossible()
     {
+        if (_pileContainer.CardElements.Count == 0)
+        {
+            foreach (Collider2D container in _columnContainers)
+            {
+                foreach(CardElement card in container.GetComponentInParent<ColumnContainer>().CardElements)
+                {
+                    if (card.Info.IsReturn)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            //TODO: card animation from column to storage
+            foreach (Collider2D container in _columnContainers)
+            {
+                List<CardElement> cards = container.GetComponentInParent<ColumnContainer>().CardElements;
+                for (int i = cards.Count; i > 0; i--)
+                {
+                    DragAndDrop.Instance.ChangeCardContainer(cards[i - 1]);
+                }
+            }
+            CheckIsFinish();
+
+        }
+
+    }
+
+    public void CheckIsFinish()
+{
         foreach (Collider2D container in _storageContainers)
         {
             if (container.GetComponentInParent<StorageContainer>().IsCompleted == false)
             {
                 return;
             }
+            _winWindow.SetActive(true);
         }
-
-        _winWindow.SetActive(true);
     }
 
     private Sprite RandomizeTexture(Sprite[] sprites)

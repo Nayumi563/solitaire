@@ -22,5 +22,7 @@ public abstract class ContainerCard : MonoBehaviour
     public virtual void RemoveElement(CardElement card)
     {
         CardElements.Remove(card);
+
+        CardManager.Instance.CheckIsFinish();
     }
 }

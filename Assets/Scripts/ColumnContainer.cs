@@ -60,6 +60,7 @@ public class ColumnContainer : ContainerCard
         }
 
         OffsetCollider();
+
         return true;
     }
 
