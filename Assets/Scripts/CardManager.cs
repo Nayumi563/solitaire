@@ -104,7 +104,7 @@ public class CardManager : MonoBehaviour
         {
             foreach (Collider2D container in _columnContainers)
             {
-                foreach(CardElement card in container.GetComponentInParent<ColumnContainer>().CardElements)
+                foreach (CardElement card in container.GetComponentInParent<ColumnContainer>().CardElements)
                 {
                     if (card.Info.IsReturn)
                     {
@@ -114,30 +114,32 @@ public class CardManager : MonoBehaviour
             }
 
             //TODO: card animation from column to storage
-            foreach (Collider2D container in _columnContainers)
+            while (CheckIsFinish() == false)
             {
-                List<CardElement> cards = container.GetComponentInParent<ColumnContainer>().CardElements;
-                for (int i = cards.Count; i > 0; i--)
+                foreach (Collider2D container in _columnContainers)
                 {
-                    DragAndDrop.Instance.ChangeCardContainer(cards[i - 1]);
+                    List<CardElement> cards = container.GetComponentInParent<ColumnContainer>().CardElements;
+                    for (int i = cards.Count; i > 0; i--)
+                    {
+                        DragAndDrop.Instance.ChangeCardContainer(cards[i - 1]);
+                    }
                 }
+                CheckIsFinish();
             }
-            CheckIsFinish();
-
         }
-
     }
 
-    public void CheckIsFinish()
-{
+    public bool CheckIsFinish()
+    {
         foreach (Collider2D container in _storageContainers)
         {
             if (container.GetComponentInParent<StorageContainer>().IsCompleted == false)
             {
-                return;
+                return false;
             }
-            _winWindow.SetActive(true);
         }
+        _winWindow.SetActive(true);
+        return true;
     }
 
     private Sprite RandomizeTexture(Sprite[] sprites)

@@ -23,6 +23,6 @@ public abstract class ContainerCard : MonoBehaviour
     {
         CardElements.Remove(card);
 
-        CardManager.Instance.CheckIsFinish();
+        CardManager.Instance.CheckWinIsPossible();
     }
 }
